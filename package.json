@@ -1,6 +1,6 @@
 {
   "name": "tree-sitter-angelscript",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "AngelScript grammar for tree-sitter",
   "repository": "https://github.com/dehorsley/tree-sitter-angelscript",
   "license": "MIT",

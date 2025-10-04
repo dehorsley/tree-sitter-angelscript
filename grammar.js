@@ -33,8 +33,8 @@ module.exports = grammar({
       [$.datatype, $.variable_access],
       [$.datatype, $.scope, $.variable_access],
       [$.datatype, $.scope,],
-      [$.scope, $.variable_access],
       [$.func, $.variable_access],
+      [$.initlist, $.compound_statement],
     ],
 
   extras: $ => [
@@ -43,7 +43,6 @@ module.exports = grammar({
   ],
 
   rules: {
-    // script: $ => 'hello',
     script: $ =>
       seq(
         repeat1(
@@ -162,19 +161,12 @@ module.exports = grammar({
         commaSep1(seq($.identifier,
           optional(
             choice(
-              seq('=', choice($.initlist, $._expression)),
+              seq('=', choice($._expression)),
               $._argument_list)
           )
         )),
         ';'
       ),
-
-
-    initlist: $ => seq(
-      '{',
-      commaSep(choice($._expression, $.initlist)),
-      '}'
-    ),
 
     _argument_list: $ => prec(PREC.CALL, seq(
       '(',
@@ -339,6 +331,7 @@ module.exports = grammar({
       $.false,
       $.null,
       $.parenthesized_expression,
+      $.initlist,
     ),
 
     variable_access: $ => seq(
@@ -359,6 +352,16 @@ module.exports = grammar({
       ':',
       field('alternative', $._expression),
     )),
+
+    initlist: $ => seq(
+      optional(seq($.type, '=')),
+      seq(
+        '{',
+        commaSep(choice($._expression)),
+        '}'
+      ),
+    ),
+
 
     string_literal: $ => choice(
       $._double_quote_string,

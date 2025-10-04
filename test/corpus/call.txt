@@ -1,0 +1,77 @@
+================================================================================
+Initlist as function argument
+================================================================================
+
+funcExpectsAnArrayOfInts({1,2,3,4});
+
+--------------------------------------------------------------------------------
+
+(script
+  (expression_statement
+    (call_expression
+      (reciever
+        (variable_access
+          (identifier)))
+      (argument
+        (initlist
+          (number_literal)
+          (number_literal)
+          (number_literal)
+          (number_literal))))))
+
+================================================================================
+Initlist of strings as function argument
+================================================================================
+
+funcExpectsAnArrayOfStrings({"one", "two", "three", "four"});
+
+--------------------------------------------------------------------------------
+
+(script
+  (expression_statement
+    (call_expression
+      (reciever
+        (variable_access
+          (identifier)))
+      (argument
+        (initlist
+          (string_literal
+            (string_content))
+          (string_literal
+            (string_content))
+          (string_literal
+            (string_content))
+          (string_literal
+            (string_content)))))))
+
+================================================================================
+Initlist with type as function argument (not quite right)
+================================================================================
+
+func(dictionary = {{'banana',1}, {'apple',2}, {'orange',3}});
+
+--------------------------------------------------------------------------------
+
+(script
+  (expression_statement
+    (call_expression
+      (reciever
+        (variable_access
+          (identifier)))
+      (argument
+        (assignment_expression
+          (variable_access
+            (identifier))
+          (initlist
+            (initlist
+              (string_literal
+                (string_content))
+              (number_literal))
+            (initlist
+              (string_literal
+                (string_content))
+              (number_literal))
+            (initlist
+              (string_literal
+                (string_content))
+              (number_literal))))))))
