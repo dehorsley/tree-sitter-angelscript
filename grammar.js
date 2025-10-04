@@ -30,7 +30,6 @@ module.exports = grammar({
 
   conflicts: $ =>
     [
-      [$.scope],
       [$.datatype, $.variable_access],
       [$.datatype, $.scope, $.variable_access],
       [$.datatype, $.scope,],
